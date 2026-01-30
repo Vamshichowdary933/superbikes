@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "superbike.html"
 
 permissions:
   id-token: write
@@ -23,16 +25,6 @@ jobs:
           role-to-assume: arn:aws:iam::517649887317:role/myserver-role
           aws-region: ap-south-1
 
-      - name: Verify AWS identity (DEBUG)
-        run: |
-          aws sts get-caller-identity
-
-      - name: List repo files (DEBUG)
-        run: |
-          ls -la
-
       - name: Upload superbike.html to S3
         run: |
-          aws s3 cp superbike.html s3://mytarakbucket/superbike.html \
-            --content-type text/html \
-            --cache-control no-cache
+          aws s3 cp superbike.html s3://${{ secrets.vamshi }}/superbike.html
