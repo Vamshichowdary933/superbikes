@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "superbike.yml"
+      - "superbike.html"
+      - ".github/workflows/main.yml"
 
 permissions:
   id-token: write
