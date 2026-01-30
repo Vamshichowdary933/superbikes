@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "superbike.html"
-      - ".github/workflows/main.yml"
 
 permissions:
   id-token: write
@@ -17,15 +14,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials (OIDC)
+      - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::517649887317:role/myserver-role
           aws-region: ap-south-1
 
-      - name: Deploy frontend to S3
+      - name: Verify AWS identity (DEBUG)
         run: |
-          aws s3 cp superbike.html s3://mytarakbucket/superbike.html 
+          aws sts get-caller-identity
+
+      - name: List repo files (DEBUG)
+        run: |
+          ls -la
+
+      - name: Upload superbike.html to S3
+        run: |
+          aws s3 cp superbike.html s3://mytarakbucket/superbike.html \
+            --content-type text/html \
+            --cache-control no-cache
