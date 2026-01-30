@@ -27,4 +27,4 @@ jobs:
 
       - name: Deploy frontend to S3
         run: |
-          aws s3 sync superbike.html s3://mytarakbucket/superbike.html --delete
+          aws s3 cp superbike.html s3://mytarakbucket/superbike.html 
