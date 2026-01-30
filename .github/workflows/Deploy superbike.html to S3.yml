@@ -27,4 +27,4 @@ jobs:
 
       - name: Upload superbike.html to S3
         run: |
-          aws s3 cp superbike.html s3://${{ secrets.vamshi }}/superbike.html
+          aws s3 cp superbike.html s3://mytarakbucket/superbike.html
