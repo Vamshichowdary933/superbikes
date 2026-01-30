@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Bikes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #0d0d0d;
+            color: #ffffff;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10;
+        }
+
+        nav h1 {
+            color: #ff1e00;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            padding: 20px;
+        }
+
+        .content h2 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #dddddd;
+        }
+
+        .content button {
+            padding: 14px 35px;
+            font-size: 1rem;
+            border: none;
+            background: #ff1e00;
+            color: white;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .content button:hover {
+            background: #d91a00;
+        }
+
+        /* LOGIN / REGISTER MODAL */
+        .auth-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #111;
+            padding: 30px;
+            width: 350px;
+            border-radius: 10px;
+            display: none;
+            z-index: 100;
+        }
+
+        .auth-box h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .auth-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #222;
+            border: none;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .auth-box button {
+            width: 100%;
+            padding: 10px;
+            background: #ff1e00;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .auth-box p {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .auth-box span {
+            color: #ff1e00;
+            cursor: pointer;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .content h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>SuperBikes</h1>
+    <ul>
+        <li><a>Home</a></li>
+        <li><a>Models</a></li>
+        <li><a onclick="openLogin()">Login</a></li>
+    </ul>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="overlay"></div>
+    <div class="content">
+        <h2>Unleash the Beast</h2>
+        <p>Experience the speed, power, and design of the world’s finest superbikes.</p>
+        <button onclick="openLogin()">Login</button>
+    </div>
+</section>
+
+<!-- LOGIN FORM -->
+<div class="auth-box" id="loginBox">
+    <span class="close" onclick="closeAuth()">✖</span>
+    <h3>Login</h3>
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button>Login</button>
+    <p>New user? <span onclick="showRegister()">Register now</span></p>
+</div>
+
+<!-- REGISTER FORM -->
+<div class="auth-box" id="registerBox">
+    <span class="close" onclick="closeAuth()">✖</span>
+    <h3>Register</h3>
+    <input type="text" placeholder="Full Name">
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button>Register</button>
+    <p>Already have an account? <span onclick="showLogin()">Login</span></p>
+</div>
+
+<script>
+    const hero = document.getElementById("hero");
+
+    const superBikeImages = [
+        "https://images.unsplash.com/photo-1511910849309-0dffb8785146",
+        "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023",
+        "https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+    ];
+
+    let index = 0;
+
+    function changeImage() {
+        hero.style.backgroundImage = `url(${superBikeImages[index]})`;
+        index = (index + 1) % superBikeImages.length;
+    }
+
+    changeImage();
+    setInterval(changeImage, 4000);
+
+    /* AUTH FUNCTIONS */
+    function openLogin() {
+        document.getElementById("loginBox").style.display = "block";
+    }
+
+    function closeAuth() {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("registerBox").style.display = "none";
+    }
+
+    function showRegister() {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("registerBox").style.display = "block";
+    }
+
+    function showLogin() {
+        document.getElementById("registerBox").style.display = "none";
+        document.getElementById("loginBox").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
