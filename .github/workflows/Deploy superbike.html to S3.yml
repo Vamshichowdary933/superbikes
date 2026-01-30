@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::517649887317:role/myserver-role
+          role-to-assume: arn:aws:iam::517649887317:role/server-role
           aws-region: ap-south-1
 
       - name: Upload superbike.html to S3
