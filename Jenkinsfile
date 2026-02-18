@@ -2,17 +2,10 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = "vamshitarak12/html-app"   
+    IMAGE_NAME = "vamshitarak12/html-app"
   }
 
   stages {
-
-    stage('Clone Repo') {
-      steps {
-        git branch: 'main',
-        url: 'https://github.com/Vamshichowdary933/superbikes.git'
-      }
-    }
 
     stage('Build Docker Image') {
       steps {
